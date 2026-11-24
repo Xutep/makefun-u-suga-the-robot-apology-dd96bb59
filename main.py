@@ -22,6 +22,13 @@ LINE_2 = (
 
 def main() -> None:
     text = LINE_1 + "\n" + LINE_2 + "\n"
+    lines = text.rstrip("\n").split("\n")
+    if len(lines) != 2:
+        raise ValueError("entry must be exactly two lines")
+    if not 1 <= len(text) <= 400:
+        raise ValueError("entry must be 1 to 400 characters")
+    if any(line.strip() == "" for line in lines):
+        raise ValueError("neither line may be blank")
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
